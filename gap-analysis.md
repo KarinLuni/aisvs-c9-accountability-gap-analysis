@@ -1,4 +1,4 @@
-## Test Results: Mayur's Reference Model vs Accountability Axis
+## Test Results: Action-Class Gate Lab vs Accountability Axis
 
 | ID | Scenario | Input (Declared effect + Consequence + Binding) | AISVS C9 Verdict | Accountability Verdict | Match | Rationale |
 |---|---|---|---|---|---|---|
