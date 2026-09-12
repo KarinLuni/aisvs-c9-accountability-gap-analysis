@@ -1,6 +1,6 @@
 ## Test Results: Mayur's Reference Model vs Accountability Axis
 
-| ID | Scenario | Input (Declared effect + Consequence + Binding) | Mayur Verdict | Accountability Verdict | Match | Rationale |
+| ID | Scenario | Input (Declared effect + Consequence + Binding) | AISVS C9 Verdict | Accountability Verdict | Match | Rationale |
 |---|---|---|---|---|---|---|
 | A | Agent signs NDA | recoverable_local + LOW + BOUND | SUPERVISED | **HUMAN_OWNS** | ❌ | NDA creates legally binding commitment; agent cannot be contractual party |
 | B | Chargeback request | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Chargeback is a legal declaration; agent cannot bear liability for its content |
