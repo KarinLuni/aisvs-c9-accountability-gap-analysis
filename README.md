@@ -1,3 +1,6 @@
+
+<img width="838" height="319" alt="Снимок экрана 2026-09-12 в 21 03 26" src="https://github.com/user-attachments/assets/16485f0c-37c3-4918-b10a-8af3e3a222be" />
+
 # Accountability Gap in AISVS C9.2.x
 
 Empirical gap analysis of OWASP AISVS v1.0 Chapter C9 controls, 
