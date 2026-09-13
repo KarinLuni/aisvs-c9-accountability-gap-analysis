@@ -6,4 +6,4 @@
 | Consequence tier | LOW |
 | Observation layer | BOUND |
 | Observation age (days) | 1 |
-| Staleness policy (max age) | _TBD_ |
+| Staleness policy (max age) | _30_ |
