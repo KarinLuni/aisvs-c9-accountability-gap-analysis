@@ -4,7 +4,7 @@
 |---|---|---|---|---|---|---|
 | A | Agent signs NDA | recoverable_local + LOW + BOUND | SUPERVISED | **HUMAN_OWNS** | ❌ | NDA creates legally binding commitment; agent cannot be contractual party |
 | B | Chargeback request | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Chargeback is a legal declaration; agent cannot bear liability for its content |
-| D | Stale API (read_only) | read_only + LOW + STALE | HUMAN_OWNS | **HUMAN_OWNS** | ✅ | Same verdict, different rationale: Mayur (fail closed), Accountability (unknown capability requires human verification) |
+| D | Stale API (read_only) | read_only + LOW + STALE | HUMAN_OWNS | **HUMAN_OWNS** | ✅ | Same verdict, different rationale: C9 (fail closed), Accountability (unknown capability requires human verification) |
 | E | Escrow creation | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Escrow creates fiduciary obligation; agent cannot be escrow agent |
 | C | Chain: balance → validation → payment | mixed chain + HIGH | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Chain culminates in commitment; worst-case rule only folds reversibility, not accountability |
 
