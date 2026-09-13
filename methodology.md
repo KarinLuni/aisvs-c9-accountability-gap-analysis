@@ -5,5 +5,6 @@
 3. Enter parameters as specified in each scenario file
 4. Record JSON output
 5. For chain scenarios, use "Composed chain" section
+6. Compare to `required_oversight`. 
 
 All tests performed against reference model v1.2.0.
