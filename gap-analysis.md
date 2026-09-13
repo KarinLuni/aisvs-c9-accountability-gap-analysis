@@ -21,4 +21,14 @@ Introduce accountability classification (`α`) orthogonal to reversibility (`κ`
 - `α = delegable` — agent may execute after approval
 - `α = human_only` — agent cannot be the accountable subject; human must own the action
 
+## What this is, and what it is not
+
+**Not a bug report.** Every verdict above is the correct output of the model as written. The model's author states plainly that C9 has no accountability axis; these runs show, case by case, what that absence costs.
+
+**Not "one axis vs two."** The model already uses two (reversibility × consequence). The claim is about a third the standard does not define.
+
+**A boundary of applicability, drawn from the inside.** The model's own README invites it: *"where they diverge, that divergence is the finding rather than a defect in either."*
+
+---
+
 This maps to the plan-time framing proposed in Lunina, K. (2026). Authorization Is the Boundary. Zenodo. https://doi.org/10.5281/zenodo.22240230.
