@@ -1,5 +1,14 @@
-### B. Agent files a chargeback
+### Scenario B — Agent + Chargeback
 
+| Field | Value |
+|---|---|
+| Declared effect | `externally_recoverable` |
+| Consequence tier | HIGH |
+| Observation layer | BOUND |
+| Observation age (days) | 1 |
+| Staleness policy (max age) | _30_ |
+
+### B. Agent files a chargeback
 **The case.** The agent files a chargeback representment — a formal statement to the bank disputing a transaction, committing the institution to a position.
 
 **What the model decides, and why.** The payment can be reversed through the card network (externally reversible) and the stakes are high, so the gate is APPROVAL_REQUIRED — a human clicks "yes," then the agent files. The model is right that the transaction can be walked back.
