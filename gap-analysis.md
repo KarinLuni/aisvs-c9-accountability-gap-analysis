@@ -1,25 +1,29 @@
 ## Test Results: Action-Class Gate Lab vs Accountability Axis
 
+Reference model: [aisvs-c9-action-class-conformance](https://github.com/Mayur021/aisvs-c9-action-class-conformance), `reversibility==1.2.0`. Full decision records in [`scenarios/`](scenarios/).
+
 | ID | Scenario | Input (Declared effect + Consequence + Binding) | AISVS C9 Verdict | Accountability Verdict | Match | Rationale |
 |---|---|---|---|---|---|---|
-| A | Agent signs NDA | recoverable_local + LOW + BOUND | SUPERVISED | **HUMAN_OWNS** | ❌ | NDA creates legally binding commitment; agent cannot be contractual party |
-| B | Chargeback request | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Chargeback is a legal declaration; agent cannot bear liability for its content |
-| D | Stale API (read_only) | read_only + LOW + STALE | HUMAN_OWNS | **HUMAN_OWNS** | ✅ | Same verdict, different rationale: C9 (fail closed), Accountability (unknown capability requires human verification) |
-| E | Escrow creation | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Escrow creates fiduciary obligation; agent cannot be escrow agent |
-| C | Chain: balance → validation → payment | mixed chain + HIGH | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Chain culminates in commitment; worst-case rule only folds reversibility, not accountability |
+| A | Agent signs NDA | recoverable_local + LOW + BOUND | SUPERVISED | **HUMAN_OWNS** | ❌ | Signing creates a binding contract; the agent cannot be a party to it. Whether the draft can be deleted is beside the point. |
+| B | Chargeback request | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | A chargeback is a legal declaration; approval lets the agent file it, but the agent cannot be the declarant. |
+| C — base | Chain: balance → validation → payment | mixed chain + LOW | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | The chain ends in a payment (a commitment); 9.2.10 folds reversibility only, so the commitment is invisible to the gate. |
+| C — all HIGH | same chain, every step HIGH consequence | mixed chain + HIGH | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Raising consequence to HIGH does not move the verdict: consequence changes the evidence tier, not the type of oversight. |
+| C — one STALE | same chain, one step's binding STALE | mixed chain + HIGH + STALE | HUMAN_OWNS | **HUMAN_OWNS** | ✅ | Reaches HUMAN_OWNS by failing closed on the stale link — not because of the commitment inside the chain. |
+| E | Escrow release | externally_recoverable + HIGH + BOUND | APPROVAL_REQUIRED | **HUMAN_OWNS** | ❌ | Releasing escrow is a fiduciary act; the agent cannot hold the fiduciary duty, approved or not. |
+| D *(control)* | Stale API (read_only) | read_only + LOW + STALE | HUMAN_OWNS | **HUMAN_OWNS** | ✅ | Same verdict, different reason: C9 fails closed on staleness; the accountability axis is not even engaged (this is currency, not accountability). |
+
+The two matches (C-STALE and D) agree for reasons that have nothing to do with accountability — the model failing closed on what it does not know. That is the tell: a table where everything disagrees is a complaint; a table whose matches have a different rationale is a measurement.
 
 ## Chain-Level Impact
 
-Under C9.2.10, the worst-case rule folds the chain at the highest reversibility class. 
-If a chain step creates a binding commitment (accountability class = human_only), 
-the oversight level should escalate to `HUMAN_OWNS` regardless of reversibility.
+Under C9.2.10, the worst-case rule folds a chain at its highest reversibility class — a `max()` over the reversibility ordering. Accountability needs the same operation on a second, orthogonal axis: any step with accountability class `human_only` should raise the whole chain to `HUMAN_OWNS`, regardless of reversibility. Because the axes are independent — a fully reversible step can still be non-delegable — the reversibility fold cannot carry accountability no matter how its labels are refined. The two folds must be taken independently, and the chain gated at the worse of the two. The C-STALE run confirms this from the other side: the chain does reach `HUMAN_OWNS`, but through the reversibility axis (stale → fail-closed → irreversible), while the commitment in the payment step contributes nothing.
 
 ## Proposed Addition
 
 Introduce accountability classification (`α`) orthogonal to reversibility (`κ`):
 
 - `α = delegable` — agent may execute after approval
-- `α = human_only` — agent cannot be the accountable subject; human must own the action
+- `α = human_only` — agent cannot be the accountable subject; a human must own the action
 
 ## What this is, and what it is not
 
