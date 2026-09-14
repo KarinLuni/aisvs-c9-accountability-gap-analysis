@@ -14,7 +14,7 @@
 
 **What the model decides, and why.** The chain-fold takes the worst declared class across the steps — `externally_recoverable` — and gates the whole chain at APPROVAL_REQUIRED from commencement. This is exactly right, and it is sequence-level: the fold is done across the chain, not step by step.
 
-**Test 1 — raise every step to HIGH consequence.** The verdict does not move. It stays APPROVAL_REQUIRED. This is the sharp observation: consequence changes the evidence tier, not the type of oversight. More stakes buys more proof; it does not change who is in control. Accountability changes the type — from "approve" to "own."
+**Test 1 — a chain with every step at HIGH consequence.** The verdict is still `APPROVAL_REQUIRED`, not `HUMAN_OWNS`. Consequence feeds the evidence tier, not the oversight type: maximum stakes do not, by themselves, move a chain into human-owned execution. Accountability changes the type — from "approve" to "own."
 
 **Test 2 — mark one step's binding STALE.** Now the chain collapses to HUMAN_OWNS. But read the `reason` field: "declarations not usable, failed closed." The chain went to the strongest gate because the model stopped trusting its own classification — not because a payment is a commitment. The fold propagates the stalest link. It has no channel to propagate obligation.
 
