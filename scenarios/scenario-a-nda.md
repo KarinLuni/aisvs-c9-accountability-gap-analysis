@@ -1,25 +1,23 @@
-### Scenario A — Agent + NDA
+## Scenario A — Agent signs an NDA
 
-| Field | Value |
+The honest classification of signing an NDA is `recoverable_local` (the draft can be
+deleted) + `LOW` (no financial exposure). The obligation it creates — a party bound to
+a contract — is on neither axis.
+
+Walking only the consequence tier on the same reversible action, binding BOUND:
+
+| Consequence | required_oversight |
 |---|---|
-| Declared effect | `recoverable_local` |
-| Consequence tier | LOW |
-| Observation layer | BOUND |
-| Observation age (days) | 1 |
-| Staleness policy (max age) | _30_ |
+| LOW | SUPERVISED |
+| MEDIUM | SUPERVISED |
+| HIGH | APPROVAL_REQUIRED |
+| CRITICAL | HUMAN_OWNS |
 
-### A. Agent signs an NDA
+`HUMAN_OWNS` appears only at `CRITICAL`. An NDA signature is not a catastrophe, so the
+only way to make the gate return `HUMAN_OWNS` is to misdeclare its blast radius. The
+gate reaches the right answer through a wrong input.
 
-**The case.** The agent drafts and e-signs a mutual NDA. The draft can be deleted within the counterparty's cooling window.
-
-**What the model decides, and why.** The action is reversible and low-consequence, so the gate is SUPERVISED — a human on the loop, able to step in. The model sees a deletable draft. It is right about the draft.
-
-**What it cannot see.** An NDA is a contract. The moment it is signed it creates a legal obligation, and the party to that obligation must be a person or a legal entity — never the agent. Deleting the file does not undo the fact that a commitment was made. This is not "the draft is hard to undo"; it is "the agent cannot be the one who is bound." That question — who is bound? — is the accountability axis, and it forces HUMAN_OWNS no matter how reversible the artefact is.
-
-**The gap in one line.** The model grades the file; the obligation is invisible.
-
-<details>
-<summary>Evidence — decision record (reversibility==1.2.0)</summary>
+<details><summary>Evidence — LOW (honest classification)</summary>
 
 ```json
 {
@@ -32,4 +30,57 @@
   "rationale": "reversibility=reversible, consequence=low, binding=bound, oversight is the worse of the two axes",
   "declared_effect": "recoverable_local"
 }
+```
+</details>
 
+<details><summary>Evidence — MEDIUM</summary>
+
+```json
+{
+  "reversibility": "REVERSIBLE",
+  "consequence": "MEDIUM",
+  "required_oversight": "SUPERVISED",
+  "evidence_tier": "standard",
+  "binding": "BOUND",
+  "mode": "declaration+observation",
+  "rationale": "reversibility=reversible, consequence=medium, binding=bound, oversight is the worse of the two axes",
+  "declared_effect": "recoverable_local"
+}
+```
+</details>
+
+<details><summary>Evidence — HIGH</summary>
+
+```json
+{
+  "reversibility": "REVERSIBLE",
+  "consequence": "HIGH",
+  "required_oversight": "APPROVAL_REQUIRED",
+  "evidence_tier": "enhanced",
+  "binding": "BOUND",
+  "mode": "declaration+observation",
+  "rationale": "reversibility=reversible, consequence=high, binding=bound, oversight is the worse of the two axes",
+  "declared_effect": "recoverable_local"
+}
+```
+</details>
+
+<details><summary>Evidence — CRITICAL (only path to HUMAN_OWNS; false about the action)</summary>
+
+```json
+{
+  "reversibility": "REVERSIBLE",
+  "consequence": "CRITICAL",
+  "required_oversight": "HUMAN_OWNS",
+  "evidence_tier": "highest",
+  "binding": "BOUND",
+  "mode": "declaration+observation",
+  "rationale": "reversibility=reversible, consequence=critical, binding=bound, oversight is the worse of the two axes",
+  "declared_effect": "recoverable_local"
+}
+```
+</details>
+
+The accountability verdict for the honest LOW row is `HUMAN_OWNS`: an agent cannot be a
+party to a contract. The gate's honest-input verdict is `SUPERVISED`. They diverge — and
+the only input that closes the divergence is a false one.
