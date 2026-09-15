@@ -18,7 +18,7 @@
 **The gap in one line.** A human pressed yes, but the declaration still has no accountable subject.
 
 <details>
-<summary>Evidence — decision record (reversibility==1.2.0)</summary>
+<summary>Evidence — decision record (aisvs-c9-action-class-conformance v1.2.0)</summary>
 
 ```json
 {
