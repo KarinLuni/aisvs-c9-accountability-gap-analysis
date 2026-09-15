@@ -25,7 +25,7 @@
 **The gap in one line.** Staleness escalates the chain; the commitment inside it does not.
 
 <details>
-<summary>Evidence — base run (reversibility==1.2.0)</summary>
+<summary>Evidence — base run (aisvs-c9-action-class-conformance v1.2.0)</summary>
 
 ```json
 {
@@ -89,3 +89,28 @@
 ```
 
 </details>
+
+<details><summary>Evidence — one step CRITICAL (chain reaches HUMAN_OWNS via consequence, not commitment)</summary>
+
+```json
+{
+  "reversibility": "EXTERNALLY_REVERSIBLE",
+  "consequence": "CRITICAL",
+  "required_oversight": "HUMAN_OWNS",
+  "evidence_tier": "highest",
+  "binding": null,
+  "mode": "declaration-only",
+  "rationale": "worst-case across 3 steps: reversibility=externally_reversible, gated at commencement",
+  "steps": [
+    {"step": 1, "declared_effect": "read_only", "consequence": "HIGH"},
+    {"step": 2, "declared_effect": "recoverable_local", "consequence": "HIGH"},
+    {"step": 3, "declared_effect": "externally_recoverable", "consequence": "CRITICAL"}
+  ]
+}
+```
+
+</details>
+
+`gate_chain` folds consequence with `max()`, so one `CRITICAL` step raises the whole
+chain to `HUMAN_OWNS` — again on the consequence axis. The commitment created by the
+payment step contributes nothing to this verdict.
