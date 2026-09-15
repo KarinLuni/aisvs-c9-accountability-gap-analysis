@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Declared effect | `externally_recoverable` (worst-case across 4 steps) |
+| Declared effect | `externally_recoverable` (worst-case across 3 steps) |
 | Consequence tier | LOW (base run) |
 | Observation layer | BOUND |
 | Observation age (days) | 1 |
