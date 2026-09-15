@@ -19,7 +19,7 @@
 **The gap in one line.** Right answer, wrong reason — which is why it proves nothing about accountability, and says so.
 
 <details>
-<summary>Evidence — decision record (reversibility==1.2.0)</summary>
+<summary>Evidence — decision record (aisvs-c9-action-class-conformance v1.2.0)</summary>
 
 ```json
 {
